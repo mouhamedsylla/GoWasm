@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	"syscall/js"
+	d "wasm-go/directive"
+	"syscall/js"	
 )
 
 func main() {
 	ch := make(chan chan struct{}, 0)
 	fmt.Println("Hello WebAssembly from Go")
-	
-	directives := []Directive{&PhoneDirective{}, &CreditDirective{} }
+
+	directives := []d.Directive{&d.PhoneDirective{}, &d.CreditDirective{}}
 
 	for _, dir := range directives {
 		elements := js.Global().Get("document").Call("querySelectorAll", dir.Selector())
