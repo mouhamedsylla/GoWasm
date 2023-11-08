@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"syscall/js"
 	d "wasm-go/directive"
-	"syscall/js"	
 )
 
 func main() {
@@ -14,6 +14,7 @@ func main() {
 
 	for _, dir := range directives {
 		elements := js.Global().Get("document").Call("querySelectorAll", dir.Selector())
+		fmt.Println(elements)
 		for i := 0; i < elements.Length(); i++ {
 			dir.SetElement(elements.Index(i))
 			dir.Init()

@@ -1,6 +1,9 @@
 package directive
 
-import "syscall/js"
+import (
+	"syscall/js"
+	"wasm-go/services"
+)
 
 
 // The CreditDirective type represents a credit directive in the Go programming language.
@@ -20,11 +23,11 @@ func (d *CreditDirective) SetElement(el js.Value) {
 func (d *CreditDirective) Init() {
 	input := d.tp
 	val := ""
-	input.Get("style").Set("borderColor", "blue")
+	input.Get("style").Set("borderColor", "red")
 
 	input.Call("addEventListener", "input", js.FuncOf(func(this js.Value, p []js.Value) interface{} {
 		val = input.Get("value").String()
-		input.Set("value", FormatNumber(NumberVerify(val, 16), 4))
+		input.Set("value", services.FormatNumber(services.NumberVerify(val, 16), 4, " "))
 		return nil
 	}))
 }
